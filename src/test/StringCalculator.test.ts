@@ -85,5 +85,28 @@ describe('string calculator', () => {
             let stringCalculator: StringCalculator = new StringCalculator();
             expect(stringCalculator.add(input)).toBe(expected);
         });
+
+        it("should return an error if string has more than one consecutive delimiter", () => {
+            let stringCalculator: StringCalculator = new StringCalculator();
+            try {
+                stringCalculator.add("//;\n1;1\n\n");
+            } catch (error) {
+                expect(error).toHaveBeenCalled;
+            }
+        }) 
+    })
+
+    describe('should not allow negative numbers', () => {
+
+        it("should return an error if string has a negative number", () => {
+            let stringCalculator: StringCalculator = new StringCalculator();
+            try {
+                stringCalculator.add("-1,2");
+            } catch (error) {
+                if(error instanceof Error) {
+                    expect(error.message).toBe("negatives not allowed -1")
+                }
+            }
+        }) 
     })
 })
